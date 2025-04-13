@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/* body * {
+  border: 1px solid black;
+} */
+.container {
+  color: #000000d5;
+  display: flex;
+  width: 800px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.container-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+}
+
+.container-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  width: 400px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+}
+form input,
+form button {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 1.5px solid #00000052;
+}
+
+form input:focus,
+form button:focus {
+  outline: none;
+}
+
+form button {
+  background-color: rgb(74, 153, 255);
+  color: white;
+  border: none;
+  transition: all 0.3s;
+}
+
+form button:hover {
+  background-color: rgba(0, 99, 230, 0.8);
+  cursor: pointer;
+}
+.container-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+}
+
+form a {
+  text-decoration: none;
+  color: rgb(74, 153, 255);
+  font-weight: 600;
+}
