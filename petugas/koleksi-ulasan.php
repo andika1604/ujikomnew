@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
     .bi-star-fill {
         color: orange;
     }

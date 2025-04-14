@@ -14,16 +14,25 @@ if ($_SESSION['level'] == "") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    </style>
 
 </head>
 
 <body>
     <div class="container">
         <div class="content mt-3">
-            <div class="card bg-secondary bg-gradient">
+            <div class="card bg-primary bg-gradient">
                 <div class="card-body">
                     <a href="index.php" class="btn text-light">Dashboard</a>
                     <a href="kategori-buku.php" class="btn text-light">Kategori Buku</a>
@@ -44,10 +53,11 @@ if ($_SESSION['level'] == "") {
                 <div class="card-header py-3">
                     <h4 class="m-0 font-weight-bold text-primary mt-3">Data Users</h4>
                     <div class="d-flex justify-content-end">
-                     <a href="tambah-petugas.php" class="btn btn-success"><i class="bi bi-plus-lg"></i>Tambah petugas</a>
+                        <a href="tambah-petugas.php" class="btn btn-success"><i class="bi bi-plus-lg"></i>Tambah
+                            petugas</a>
                     </div>
                 </div>
-                <div class="card-body"> 
+                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead class="table table-secondary">
@@ -70,20 +80,24 @@ if ($_SESSION['level'] == "") {
                                 while ($row = mysqli_fetch_array($query)) {
                                 ?>
 
-                                    <tr>
+                                <tr>
 
-                                        <td><?php echo $no++; ?></td>
-                                        <td><?php echo $row['username']; ?></td>
-                                        <td><?php echo $row['email']; ?></td>
-                                        <td><?php echo $row['nama_lengkap']; ?></td>
-                                        <td><?php echo $row['alamat']; ?></td>
-                                        <td><?php echo $row['level']; ?></td>
-                                        <td>
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#modalEditUser<?php echo $row['id_user']; ?>" class="btn btn-info">Edit</a>
-                                            <a href="proses/hapus-user.php?id_user=<?php echo $row['id_user']; ?>" onclick="return confirm('yakin untuk dihapus?');" class="btn btn-danger">Hapus</a>
+                                    <td><?php echo $no++; ?></td>
+                                    <td><?php echo $row['username']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td><?php echo $row['nama_lengkap']; ?></td>
+                                    <td><?php echo $row['alamat']; ?></td>
+                                    <td><?php echo $row['level']; ?></td>
+                                    <td class="d-flex gap-2">
+                                        <a href="" data-bs-toggle="modal"
+                                            data-bs-target="#modalEditUser<?php echo $row['id_user']; ?>"
+                                            class="btn btn-info">Edit</a>
+                                        <a href="proses/hapus-user.php?id_user=<?php echo $row['id_user']; ?>"
+                                            onclick="return confirm('yakin untuk dihapus?');"
+                                            class="btn btn-danger">Hapus</a>
 
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
 
                                 <?php  } ?>
                             </tbody>
@@ -103,61 +117,71 @@ if ($_SESSION['level'] == "") {
         while ($row = mysqli_fetch_array($result)) {
 
         ?>
-            <div class="modal fade" id="modalEditUser<?= $row['id_user']; ?>" tabindex="-1" aria-labelledby="modalEditUserLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalEditUserLabel">Edit Data User</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="proses/edit-user.php" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="hidden" name="id_user" id="id_user" class="form-control" value="<?= $row['id_user']; ?>">
-                                    <label for="username" class="mb-2">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control" placeholder="Masukkan Username" value="<?= $row['username']; ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="mb-2">Password</label>
-                                    <input type="password" readonly name="password" id="password" class="form-control" placeholder="Masukkan Password" value="<?= $row['password']; ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="mb-2">Email</label>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Masukkan Email" value="<?= $row['email']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nama_lengkap" class="mb-2">Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" placeholder="Masukkan Nama Lengkap" value="<?= $row['nama_lengkap']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alamat" class="mb-2">Alamat</label>
-                                    <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukkan Alamat" value="<?= $row['alamat']; ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="level" class="mb-2">Level User</label>
-                                    <input type="text" name="level" id="level" class="form-control" placeholder="Masukkan Level User" value="<?= $row['level']; ?>" readonly>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Edit Data</button>
-                            </div>
-                        </form>
+        <div class="modal fade" id="modalEditUser<?= $row['id_user']; ?>" tabindex="-1"
+            aria-labelledby="modalEditUserLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalEditUserLabel">Edit Data User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form action="proses/edit-user.php" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="id_user" id="id_user" class="form-control"
+                                    value="<?= $row['id_user']; ?>">
+                                <label for="username" class="mb-2">Username</label>
+                                <input type="text" name="username" id="username" class="form-control"
+                                    placeholder="Masukkan Username" value="<?= $row['username']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="mb-2">Password</label>
+                                <input type="password" readonly name="password" id="password" class="form-control"
+                                    placeholder="Masukkan Password" value="<?= $row['password']; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="mb-2">Email</label>
+                                <input type="text" name="email" id="email" class="form-control"
+                                    placeholder="Masukkan Email" value="<?= $row['email']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_lengkap" class="mb-2">Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
+                                    placeholder="Masukkan Nama Lengkap" value="<?= $row['nama_lengkap']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat" class="mb-2">Alamat</label>
+                                <input type="text" name="alamat" id="alamat" class="form-control"
+                                    placeholder="Masukkan Alamat" value="<?= $row['alamat']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="level" class="mb-2">Level User</label>
+                                <input type="text" name="level" id="level" class="form-control"
+                                    placeholder="Masukkan Level User" value="<?= $row['level']; ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Edit Data</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
-     <!-- footer -->
-    <div class="content mt-3 fixed-bottom bg-white">
-      <p class="text-center"> Aplikasi Perpustakaan Digital | 2024 </p>
-    </div>
+        <!-- footer -->
+        <div class="content mt-3 fixed-bottom bg-white">
+            <p class="text-center"> Aplikasi Perpustakaan Digital | 2024 </p>
+        </div>
 
         <?php
         }
         ?>
 
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>

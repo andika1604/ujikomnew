@@ -18,7 +18,13 @@ if (!isset($_SESSION['level']) || $_SESSION['level'] == "") {
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    </style>
 </head>
 
 <body>
@@ -102,16 +108,22 @@ if (!isset($_SESSION['level']) || $_SESSION['level'] == "") {
                             </thead>
                             <tbody>
                                 <?php
-                                include '../koneksi.php';
-                                $no = 1;
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    $tanggal_peminjaman = $_POST['tanggal_peminjaman'];
-                                    $tanggal_pengembalian = $_POST['tanggal_pengembalian'];
-                                    $query = mysqli_query($koneksi, "SELECT * FROM peminjaman, buku, user WHERE peminjaman.id_user=user.id_user
-                                         AND peminjaman.id_buku=buku.id_buku AND tanggal_peminjaman >= '$tanggal_peminjaman' AND 
-                                         (tanggal_pengembalian <= '$tanggal_pengembalian')");
+                                    include '../koneksi.php';
+                                    $no = 1;
+                                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                        $tanggal_peminjaman = $_POST['tanggal_peminjaman'];
+                                        $tanggal_pengembalian = $_POST['tanggal_pengembalian'];
+                                        $query = mysqli_query($koneksi, "SELECT * FROM peminjaman, buku, user WHERE peminjaman.id_user=user.id_user
+                                             AND peminjaman.id_buku=buku.id_buku AND tanggal_peminjaman >= '$tanggal_peminjaman' AND 
+                                             (tanggal_pengembalian <= '$tanggal_pengembalian')");
+                                    } else {
+                                        // Kalau belum difilter, tampilkan semua data
+                                        $query = mysqli_query($koneksi, "SELECT * FROM peminjaman, buku, user WHERE peminjaman.id_user=user.id_user
+                                             AND peminjaman.id_buku=buku.id_buku ORDER BY peminjaman.id_peminjaman DESC");
+                                    }
+                                    
                                     while ($row = mysqli_fetch_assoc($query)) {
-                                ?>
+                                    ?>
                                 <tr class="text-center">
                                     <td><?php echo $no++; ?>.</td>
                                     <td><?php echo $row['nama_lengkap']; ?></td>
@@ -121,14 +133,14 @@ if (!isset($_SESSION['level']) || $_SESSION['level'] == "") {
                                     <td><?php echo $row['status_peminjaman']; ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-success"
-                                            href="print1.php?id_peminjaman=<?php echo $row['id_peminjaman']; ?>&tanggal_peminjaman=<?php echo $tanggal_peminjaman; ?>&tanggal_pengembalian=<?php echo $tanggal_pengembalian; ?>"
+                                            href="print1.php?id_peminjaman=<?php echo $row['id_peminjaman']; ?>&tanggal_peminjaman=<?php echo $row['tanggal_peminjaman']; ?>&tanggal_pengembalian=<?php echo $row['tanggal_pengembalian']; ?>"
                                             target="_blank">Print</a>
                                     </td>
                                 </tr>
                                 <?php
-                                    }
-                                }
-                                ?>
+}
+?>
+
                             </tbody>
                         </table>
                         <script>

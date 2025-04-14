@@ -17,7 +17,13 @@ if($_SESSION['level']==""){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    </style>
 </head>
 
 <body>
@@ -44,7 +50,7 @@ if($_SESSION['level']==""){
 					$dp = mysqli_query($koneksi, "SELECT COUNT(*) total FROM buku");
 					$rp = mysqli_fetch_assoc($dp);
 					?>
-                        <div class="card-body bg-primary-subtle text-center">
+                        <div class="shadow card-body bg-primary-subtle text-center">
                             <h3> Data Buku </h3>
                             <h2> <?php echo $rp['total']; ?> </h2>
                             <hr>
@@ -59,7 +65,7 @@ if($_SESSION['level']==""){
 					$dp = mysqli_query($koneksi, "SELECT COUNT(*) total FROM kategoribuku");
 					$a = mysqli_fetch_assoc($dp);
 					?>
-                        <div class="card-body bg-secondary-subtle text-center">
+                        <div class="shadow card-body bg-primary-subtle text-center">
                             <h3> Kategori Buku </h3>
                             <h2> <?php echo $a['total']; ?> </h2>
                             <hr>
@@ -75,7 +81,7 @@ if($_SESSION['level']==""){
 					$dp = mysqli_query($koneksi, "SELECT COUNT(*) total FROM ulasanbuku");
 					$c = mysqli_fetch_assoc($dp);
 					?>
-                        <div class="card-body bg-warning-subtle text-center">
+                        <div class="shadow card-body bg-primary-subtle text-center">
                             <h3> Ulasan </h3>
                             <h2> <?php echo $c['total']; ?> </h2>
                             <hr>
